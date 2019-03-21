@@ -6,7 +6,7 @@ int main(int arg, char *argv[]) {
 
 	game = new Game();
 
-	game->init("PeopleWar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, true);
+	game->init("PeopleWar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
 	while (game->running()) {
 
