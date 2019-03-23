@@ -4,16 +4,29 @@ Game *game = nullptr;
 
 int main(int arg, char *argv[]) {
 
-	game = new Game();
+	const int FPS = 60;					//frame rate - fps-y 
+	const int frameDelay = 1000 / FPS;
 
+	Uint32 frameStart;
+	int frameTime;						//frame rate - fps-y
+
+	game = new Game();
 	game->init("PeopleWar", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
 	while (game->running()) {
+
+		frameStart = SDL_GetTicks();		//frame rate - fps-y
 
 		game->handleEvents();
 		game->update();
 		game->render();
 
+		frameTime = SDL_GetTicks() - frameStart;  //frame rate - fps-y
+
+		if (frameDelay > frameTime)						//frame rate - fps-y
+		{
+			SDL_Delay(frameDelay - frameTime);
+		}
 	}
 	game->clean();
 
