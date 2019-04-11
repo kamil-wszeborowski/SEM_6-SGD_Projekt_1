@@ -1,9 +1,9 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "GameObject.h"
 
-
-SDL_Texture* playerTex;
-SDL_Rect srcR, destR;
+GameObject* player;
+GameObject* enymy;
 
 Game::Game()
 {}
@@ -47,8 +47,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	SDL_FreeSurface(tmpSurface);
 	*/
 
-	playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
+	//playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
 
+	player = new GameObject("assets/player.png", renderer,0,0);
+	enymy = new GameObject("assets/enymy.png", renderer, 116, 116);
 }
 
 void Game::handleEvents()
@@ -60,7 +62,6 @@ void Game::handleEvents()
 	case SDL_QUIT:
 			isRunning = false;
 			break;
-
 		default:
 			break;
 	}
@@ -68,21 +69,16 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	cnt++;
-	destR.h = 96;
-	destR.w = 96;
-
-	destR.x = cnt;
-
-
-	std::cout << cnt << std::endl;
+	player->Update();
+	enymy->Update();
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	// tu mo¿emy dodwaæ rzyczy do renderowania
-	SDL_RenderCopy(renderer, playerTex, NULL, &destR);
+	player->Render();
+	enymy->Render();
 	SDL_RenderPresent(renderer);
 }
 
