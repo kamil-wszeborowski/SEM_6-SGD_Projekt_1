@@ -1,9 +1,14 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Map.h"
 
 GameObject* player;
 GameObject* enymy;
+Map* map;
+
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {}
@@ -49,8 +54,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	//playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
 
-	player = new GameObject("assets/player.png", renderer,0,0);
-	enymy = new GameObject("assets/enymy.png", renderer, 116, 116);
+	player = new GameObject("assets/player.png", 0, 0);
+	enymy = new GameObject("assets/enymy.png", 116, 116);
+	map = new Map();
 }
 
 void Game::handleEvents()
@@ -77,6 +83,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	// tu mo¿emy dodwaæ rzyczy do renderowania
+	map->DrawMap();
 	player->Render();
 	enymy->Render();
 	SDL_RenderPresent(renderer);

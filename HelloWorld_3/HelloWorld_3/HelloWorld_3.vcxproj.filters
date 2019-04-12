@@ -30,6 +30,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -41,9 +44,24 @@
     <ClInclude Include="GameObject.h">
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Pliki źródłowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\dirt.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\grass.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\water.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\enymy.png">
       <Filter>Pliki źródłowe\assets</Filter>
     </Image>
   </ItemGroup>
