@@ -4,6 +4,8 @@ Game *game = nullptr;
 
 int main(int arg, char *argv[]) {
 
+	int startLoop=0;
+
 	const int FPS = 60;					//frame rate - fps-y 
 	const int frameDelay = 1000 / FPS;
 
@@ -19,7 +21,12 @@ int main(int arg, char *argv[]) {
 
 		game->handleEvents();
 		game->update();
-		game->render();
+		game->render(startLoop);
+		if (startLoop < 5) {
+			startLoop++;
+		}
+		
+		
 
 		frameTime = SDL_GetTicks() - frameStart;  //frame rate - fps-y
 

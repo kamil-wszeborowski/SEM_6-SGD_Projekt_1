@@ -3,8 +3,13 @@
 #include "GameObject.h"
 #include "Map.h"
 
+GameObject* one;
+GameObject* two;
+GameObject* three;
+GameObject* start;
 GameObject* player;
 GameObject* enymy;
+GameObject* end;
 Map* map;
 
 
@@ -50,12 +55,18 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	SDL_Surface* tmpSurface = IMG_Load("assets/player.png");
 	playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
+
+	playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
 	*/
 
-	//playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
+	three = new GameObject("assets/3.png", 384, 304);
+	two = new GameObject("assets/2.png", 384, 304);
+	one = new GameObject("assets/1.png", 384, 304);
+	start = new GameObject("assets/go.png", 384, 304);
+	end = new GameObject("assets/game_over.png", 350, 270);
 
 	player = new GameObject("assets/player.png", 0, 0);
-	enymy = new GameObject("assets/enymy.png", 116, 116);
+	enymy = new GameObject("assets/enymy.png", 64, 64);
 	map = new Map();
 }
 
@@ -75,18 +86,67 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	three->Update();
+	two->Update();
+	one->Update();
+	start->Update();
+	end->Update();
+	
 	player->Update();
 	enymy->Update();
 }
 
-void Game::render()
+void Game::render(int startLoop)
 {
-	SDL_RenderClear(renderer);
+//	SDL_RenderClear(renderer);
 	// tu mo¿emy dodwaæ rzyczy do renderowania
-	map->DrawMap();
-	player->Render();
-	enymy->Render();
-	SDL_RenderPresent(renderer);
+	
+	switch (startLoop)
+	{
+	case 0:
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			three->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(3000);
+		break;
+	case 1:
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			two->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(3000);
+		break;
+	case 2:
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			one->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(3000);
+		break;
+	case 3:	
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			start->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(3000);
+		break;
+	case 4:
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			end->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(3000);
+		break;
+	default:
+		SDL_RenderClear(renderer);
+			map->DrawMap();
+			player->Render();
+			enymy->Render();
+		SDL_RenderPresent(renderer);
+		break;
+	}
+	
 }
 
 void Game::clean()
