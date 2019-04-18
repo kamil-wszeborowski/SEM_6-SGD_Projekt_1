@@ -6,8 +6,8 @@ public:
 	 GameObject(const char* texturesheet, int x, int y);
 	~GameObject();
 
-	virtual void Update();
-	virtual void Render();
+	 void Update();
+	 void Render();
 
 private:
 	int xpos;

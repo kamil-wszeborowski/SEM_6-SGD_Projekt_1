@@ -10,6 +10,9 @@ public:
 	void Update();
 	void Render();
 
+	void SetRec(SDL_Rect srcRect,SDL_Rect destRect);
+	SDL_Rect GetRec();
+
 private:
 	int xpos;
 	int ypos;

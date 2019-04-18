@@ -11,6 +11,8 @@ public:
 	void LoadMap(int arr[20][25]);
 	void DrawMap();
 
+	SDL_Rect GetPositionOfBarrier();
+
 private:
 
 	SDL_Rect src, dest;
@@ -21,4 +23,5 @@ private:
 
 	int map[20][25];
 
+	
 };

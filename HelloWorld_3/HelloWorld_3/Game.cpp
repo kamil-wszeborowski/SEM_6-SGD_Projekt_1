@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Map.h"
 #include "Player.h"
+#include "Collision.h"
 
 GameObject* one;
 GameObject* two;
@@ -10,6 +11,7 @@ GameObject* three;
 GameObject* start;
 
 Player* player;
+Collision* collision;
 
 GameObject* end;
 Map* map;
@@ -67,10 +69,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	start = new GameObject("assets/go.png", 384, 304);
 	end = new GameObject("assets/game_over.png", 350, 270);
 
-	player = new Player("assets/player.png", 100, 100);
+	player = new Player("assets/player_stop_border.png", 0, 0);
 	//player = new GameObject("assets/player.png", 0, 0);
-
+	
 	map = new Map();
+
+	collision = new Collision();
+
+	//collision->AABB(player->GetRec, map->GetPositionOfBarrier);
 }
 
 void Game::handleEvents()
@@ -89,13 +95,33 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	//SDL_Rect beforeCollision;
+	//SDL_Rect beforeCollision;
+	SDL_Rect srcrect;
+	SDL_Rect dstrect;
+
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = 32;
+	srcrect.h = 32;
+	dstrect.x = 640 / 2;
+	dstrect.y = 480 / 2;
+	dstrect.w = 32;
+	dstrect.h = 32;
+
+
 	three->Update();
 	two->Update();
 	one->Update();
 	start->Update();
 	end->Update();
 	
+	//beforeCollision = player->GetRec();
 	player->Update();
+	if (collision->AABB(player->GetRec(), map->GetPositionOfBarrier())) {
+		player->SetRec(srcrect,dstrect);
+	}
+	
 }
 
 void Game::render(int startLoop)
