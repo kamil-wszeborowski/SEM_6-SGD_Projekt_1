@@ -10,8 +10,13 @@ public:
 	void Update();
 	void Render();
 
-	void SetRec(SDL_Rect srcRect,SDL_Rect destRect);
 	SDL_Rect GetRec();
+	int GetDestX();
+	int GetDestY();
+
+	void SetRec(SDL_Rect v_destRect);
+	void SetDestX(int setX);
+	void SetDestY(int setY);
 
 private:
 	int xpos;

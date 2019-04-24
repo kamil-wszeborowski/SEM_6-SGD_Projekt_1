@@ -69,7 +69,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	start = new GameObject("assets/go.png", 384, 304);
 	end = new GameObject("assets/game_over.png", 350, 270);
 
-	player = new Player("assets/player_stop_border.png", 0, 0);
+	player = new Player("assets/player_stop_border.png", 32, 320);
 	//player = new GameObject("assets/player.png", 0, 0);
 	
 	map = new Map();
@@ -95,20 +95,21 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	//SDL_Rect beforeCollision;
-	//SDL_Rect beforeCollision;
-	SDL_Rect srcrect;
-	SDL_Rect dstrect;
+	/*
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.w = 32 * 2;	// wielkoœæ postaci
+	srcRect.h = 32 * 2; // wielkoœæ postaci
 
-	srcrect.x = 0;
-	srcrect.y = 0;
-	srcrect.w = 32;
-	srcrect.h = 32;
-	dstrect.x = 640 / 2;
-	dstrect.y = 480 / 2;
-	dstrect.w = 32;
-	dstrect.h = 32;
+	dstRect.w = 32 * 2; // wielkoœæ postaci
+	dstRect.h = 32 * 2;	// wielkoœæ postaci
 
+	dstRect.x = 2*32;
+	dstRect.y = 1*32;
+	*/
+
+	SDL_Rect  dstRect;
+	int dstX, dstY, sizeOfVectorMap;
 
 	three->Update();
 	two->Update();
@@ -116,19 +117,30 @@ void Game::update()
 	start->Update();
 	end->Update();
 	
-	//beforeCollision = player->GetRec();
+	dstRect = player->GetRec(); 
+	dstX = player->GetDestX();
+	dstY = player->GetDestY();
+
 	player->Update();
-	if (collision->AABB(player->GetRec(), map->GetPositionOfBarrier())) {
-		player->SetRec(srcrect,dstrect);
+	std::cout << "X: " << player->GetDestX() << " Y: " << player->GetDestY() << std::endl;
+
+	sizeOfVectorMap = map->GetSizeOfVectorMap();
+
+	for (int i = 0,z=1; i<=(sizeOfVectorMap-2), z<= (sizeOfVectorMap-1); i++,z++) {
+		
+		if (collision->AABB( player->GetRec(), map->GetPositionOfBarrier(i,z) )) {
+			player->SetRec(dstRect);
+			player->SetDestX(dstX);
+			player->SetDestY(dstY);
+		}
 	}
-	
+
 }
 
 void Game::render(int startLoop)
 {
-//	SDL_RenderClear(renderer);
 	// tu mo¿emy dodwaæ rzyczy do renderowania
-	int timeOfDealy = 1000;
+	int timeOfDealy = 10;
 
 	switch (startLoop)
 	{

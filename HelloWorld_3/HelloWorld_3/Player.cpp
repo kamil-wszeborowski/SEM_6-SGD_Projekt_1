@@ -76,11 +76,26 @@ void Player::Render()
 	SDL_RenderCopy(Game::renderer, objTexture, &srcRect, &destRect);
 }
 
-void Player::SetRec(SDL_Rect srcRect, SDL_Rect destRect){
-	srcRect = srcRect;
-	destRect = destRect;
-};
 
 SDL_Rect Player::GetRec() {
 	return srcRect, destRect;
-};
+}
+int Player::GetDestX()
+{
+	return xpos;
+}
+int Player::GetDestY()
+{
+	return ypos;
+}
+
+void Player::SetRec(SDL_Rect v_destRect) {
+	//srcRect = v_srcRect;
+	destRect = v_destRect;
+}
+void Player::SetDestX(int setX) {
+	xpos = setX;
+}
+void Player::SetDestY(int setY) {
+	ypos = setY;
+}
