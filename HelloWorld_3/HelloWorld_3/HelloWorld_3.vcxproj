@@ -169,10 +169,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\dirt.png" />
-    <Image Include="assets\enymy.png" />
+    <Image Include="assets\dirt_mine.png" />
+    <Image Include="assets\game_over.png" />
+    <Image Include="assets\game_win.png" />
     <Image Include="assets\grass.png" />
+    <Image Include="assets\grass_mine.png" />
     <Image Include="assets\player.png" />
+    <Image Include="assets\rock.png" />
     <Image Include="assets\water.png" />
+    <Image Include="assets\win.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

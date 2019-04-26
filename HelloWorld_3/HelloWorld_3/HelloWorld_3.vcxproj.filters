@@ -70,13 +70,28 @@
     <Image Include="assets\dirt.png">
       <Filter>Pliki źródłowe\assets</Filter>
     </Image>
-    <Image Include="assets\grass.png">
-      <Filter>Pliki źródłowe\assets</Filter>
-    </Image>
     <Image Include="assets\water.png">
       <Filter>Pliki źródłowe\assets</Filter>
     </Image>
-    <Image Include="assets\enymy.png">
+    <Image Include="assets\grass.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\dirt_mine.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\grass_mine.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\rock.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\win.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\game_over.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\game_win.png">
       <Filter>Pliki źródłowe\assets</Filter>
     </Image>
   </ItemGroup>

@@ -22,7 +22,7 @@ int main(int arg, char *argv[]) {
 		game->handleEvents();
 		game->update();
 		game->render(startLoop);
-		if (startLoop < 5) {
+		if (startLoop < 4) {
 			startLoop++;
 		}
 		

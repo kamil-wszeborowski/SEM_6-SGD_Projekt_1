@@ -14,6 +14,8 @@ Player* player;
 Collision* collision;
 
 GameObject* end;
+GameObject* win;
+
 Map* map;
 
 SDL_Event Game::event;
@@ -68,8 +70,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	one = new GameObject("assets/1.png", 384, 304);
 	start = new GameObject("assets/go.png", 384, 304);
 	end = new GameObject("assets/game_over.png", 350, 270);
+	win = new GameObject("assets/game_win.png,", 350, 270);
 
-	player = new Player("assets/player_stop_border.png", 32, 320);
+	player = new Player("assets/player_stop_border.png", 32, 288);
 	//player = new GameObject("assets/player.png", 0, 0);
 	
 	map = new Map();
@@ -109,24 +112,43 @@ void Game::update()
 	*/
 
 	SDL_Rect  dstRect;
-	int dstX, dstY, sizeOfVectorMap;
+	int dstX, dstY, sizeOfVectorMap, sizeOfVectorMine, sizeOfVectorWin;
 
 	three->Update();
 	two->Update();
 	one->Update();
 	start->Update();
 	end->Update();
-	
+	win->Update();
+
 	dstRect = player->GetRec(); 
 	dstX = player->GetDestX();
 	dstY = player->GetDestY();
 
 	player->Update();
-	std::cout << "X: " << player->GetDestX() << " Y: " << player->GetDestY() << std::endl;
+	//std::cout << "X: " << player->GetDestX() << " Y: " << player->GetDestY() << std::endl;
 
 	sizeOfVectorMap = map->GetSizeOfVectorMap();
+	sizeOfVectorMine = map->GetSizeOfVectorMine();
+	sizeOfVectorWin = map->GetSizeOfVectorWin();
 
-	for (int i = 0,z=1; i<=(sizeOfVectorMap-2), z<= (sizeOfVectorMap-1); i++,z++) {
+	for (int i = 0, z = 1; i < (sizeOfVectorWin - 1), z < sizeOfVectorWin; i++, z++) {
+
+		if (collision->AABB(player->GetRec(), map->GetPositionOfWin(i, z))) {
+			std::cout << "WIN" << std::endl;
+			gameWin = true;
+		}
+	}
+
+	for (int i = 0, z = 1; i < (sizeOfVectorMine - 1), z < sizeOfVectorMine; i++, z++) {
+
+		if (collision->AABB(player->GetRec(), map->GetPositionOfMine(i, z))) {
+			std::cout << "BUM" <<std::endl;
+			gameWin = false;
+		}
+	}
+
+	for (int i = 0,z=1; i < (sizeOfVectorMap-1), z < sizeOfVectorMap; i++,z++) {
 		
 		if (collision->AABB( player->GetRec(), map->GetPositionOfBarrier(i,z) )) {
 			player->SetRec(dstRect);
@@ -134,48 +156,42 @@ void Game::update()
 			player->SetDestY(dstY);
 		}
 	}
+	
 
 }
 
 void Game::render(int startLoop)
 {
 	// tu mo¿emy dodwaæ rzyczy do renderowania
-	int timeOfDealy = 10;
+	int timeOfDealy = 1000;
 
 	switch (startLoop)
 	{
 	case 0:
 		SDL_RenderClear(renderer);
-			map->DrawMap();
+			map->DrawMapWithMine();
 			three->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(timeOfDealy);
 		break;
 	case 1:
 		SDL_RenderClear(renderer);
-			map->DrawMap();
+			map->DrawMapWithMine();
 			two->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(timeOfDealy);
 		break;
 	case 2:
 		SDL_RenderClear(renderer);
-			map->DrawMap();
+			map->DrawMapWithMine();
 			one->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(timeOfDealy);
 		break;
 	case 3:	
 		SDL_RenderClear(renderer);
-			map->DrawMap();
+			map->DrawMapWithMine();
 			start->Render();
-		SDL_RenderPresent(renderer);
-		SDL_Delay(timeOfDealy);
-		break;
-	case 4:
-		SDL_RenderClear(renderer);
-			map->DrawMap();
-			end->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(timeOfDealy);
 		break;
@@ -185,6 +201,21 @@ void Game::render(int startLoop)
 			player->Render();
 		SDL_RenderPresent(renderer);
 		break;
+	}
+	
+	if (gameWin == false) {
+		SDL_RenderClear(renderer);
+			map->DrawMapWithMine();
+			end->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(timeOfDealy);
+	}
+	if(gameWin == true) {
+		SDL_RenderClear(renderer);
+			map->DrawMapWithMine();
+			win->Render();
+		SDL_RenderPresent(renderer);
+		SDL_Delay(timeOfDealy);
 	}
 	
 }
