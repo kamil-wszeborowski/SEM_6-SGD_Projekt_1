@@ -9,6 +9,10 @@ public:
 	 void Update();
 	 void Render();
 
+	 void SetRec(SDL_Rect v_destRect);
+	 void SetDestX(int setX);
+	 void SetDestY(int setY);
+
 private:
 	int xpos;
 	int ypos;

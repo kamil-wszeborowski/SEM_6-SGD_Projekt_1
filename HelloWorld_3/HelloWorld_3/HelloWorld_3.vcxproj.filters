@@ -94,5 +94,20 @@
     <Image Include="assets\game_win.png">
       <Filter>Pliki źródłowe\assets</Filter>
     </Image>
+    <Image Include="assets\1.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\2.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\3.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\go.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
+    <Image Include="assets\explosion.png">
+      <Filter>Pliki źródłowe\assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

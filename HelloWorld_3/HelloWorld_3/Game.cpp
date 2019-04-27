@@ -15,6 +15,7 @@ Collision* collision;
 
 GameObject* end;
 GameObject* win;
+GameObject* explosion;
 
 Map* map;
 
@@ -65,21 +66,19 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
 	*/
 
-	three = new GameObject("assets/3.png", 384, 304);
-	two = new GameObject("assets/2.png", 384, 304);
-	one = new GameObject("assets/1.png", 384, 304);
-	start = new GameObject("assets/go.png", 384, 304);
-	end = new GameObject("assets/game_over.png", 350, 270);
-	win = new GameObject("assets/game_win.png,", 350, 270);
+	three = new GameObject("assets/3.png", 300, 220);
+	two = new GameObject("assets/2.png", 300, 220);
+	one = new GameObject("assets/1.png", 300, 220);
+	start = new GameObject("assets/go.png", 300, 220);
+	end = new GameObject("assets/game_over.png", 300, 220);
+	win = new GameObject("assets/game_win.png", 300, 220);
+	explosion = new GameObject("assets/explosion.png", 300, 220);
 
 	player = new Player("assets/player_stop_border.png", 32, 288);
-	//player = new GameObject("assets/player.png", 0, 0);
 	
 	map = new Map();
 
 	collision = new Collision();
-
-	//collision->AABB(player->GetRec, map->GetPositionOfBarrier);
 }
 
 void Game::handleEvents()
@@ -112,14 +111,15 @@ void Game::update()
 	*/
 
 	SDL_Rect  dstRect;
-	int dstX, dstY, sizeOfVectorMap, sizeOfVectorMine, sizeOfVectorWin;
+	
 
 	three->Update();
 	two->Update();
 	one->Update();
 	start->Update();
-	end->Update();
 	win->Update();
+	end->Update();
+	explosion->Update();
 
 	dstRect = player->GetRec(); 
 	dstX = player->GetDestX();
@@ -135,7 +135,7 @@ void Game::update()
 	for (int i = 0, z = 1; i < (sizeOfVectorWin - 1), z < sizeOfVectorWin; i++, z++) {
 
 		if (collision->AABB(player->GetRec(), map->GetPositionOfWin(i, z))) {
-			std::cout << "WIN" << std::endl;
+			//std::cout << "WIN" << std::endl;
 			gameWin = true;
 		}
 	}
@@ -143,8 +143,11 @@ void Game::update()
 	for (int i = 0, z = 1; i < (sizeOfVectorMine - 1), z < sizeOfVectorMine; i++, z++) {
 
 		if (collision->AABB(player->GetRec(), map->GetPositionOfMine(i, z))) {
-			std::cout << "BUM" <<std::endl;
+			//std::cout << "BUM" <<std::endl;
 			gameWin = false;
+			explosion->SetRec(dstRect);
+			explosion->SetDestX(dstX);
+			explosion->SetDestY(dstY);
 		}
 	}
 
@@ -163,7 +166,7 @@ void Game::update()
 void Game::render(int startLoop)
 {
 	// tu mo¿emy dodwaæ rzyczy do renderowania
-	int timeOfDealy = 1000;
+	int timeOfDealy = 2000;
 
 	switch (startLoop)
 	{
@@ -204,6 +207,15 @@ void Game::render(int startLoop)
 	}
 	
 	if (gameWin == false) {
+		if (showOnlyOneExplosion == 0) {
+			showOnlyOneExplosion++;
+			SDL_RenderClear(renderer);
+				map->DrawMapWithMine();
+				explosion->Render();
+			SDL_RenderPresent(renderer);
+			SDL_Delay(timeOfDealy);
+		}
+		
 		SDL_RenderClear(renderer);
 			map->DrawMapWithMine();
 			end->Render();

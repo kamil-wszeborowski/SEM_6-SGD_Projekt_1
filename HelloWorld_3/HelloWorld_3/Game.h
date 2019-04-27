@@ -26,4 +26,6 @@ private:
 	bool isRunning;
 	SDL_Window *window;
 	bool gameWin;
+
+	int dstX, dstY, sizeOfVectorMap, sizeOfVectorMine, sizeOfVectorWin, showOnlyOneExplosion=0;
 };

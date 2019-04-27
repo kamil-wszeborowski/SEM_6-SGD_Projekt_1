@@ -168,10 +168,15 @@
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\1.png" />
+    <Image Include="assets\2.png" />
+    <Image Include="assets\3.png" />
     <Image Include="assets\dirt.png" />
     <Image Include="assets\dirt_mine.png" />
+    <Image Include="assets\explosion.png" />
     <Image Include="assets\game_over.png" />
     <Image Include="assets\game_win.png" />
+    <Image Include="assets\go.png" />
     <Image Include="assets\grass.png" />
     <Image Include="assets\grass_mine.png" />
     <Image Include="assets\player.png" />
